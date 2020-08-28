@@ -5,7 +5,10 @@
 
 class FolderManager {
 	std::string m_folderPath;
-	std::vector<File> m_files;
+	std::string m_files[s_maxSize];
+
+	struct Marker;
+	Marker m_marker;
 
 public:
 	static constexpr int s_maxSize = 69; //NICE
