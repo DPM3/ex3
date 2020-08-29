@@ -5,8 +5,8 @@ struct OperatorID {
 		IMG_ROT,
 		IMG_GS,
 		HS_CRC32,
-		CCHE_SRCH,
-		CCHE_CLR
+		CCHE_CLR,
+		CCHE_SRCH
 	} type;
 
 	std::vector<std::string> operands;
