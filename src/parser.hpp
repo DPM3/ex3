@@ -1,7 +1,7 @@
 #pragma once
 
+#include"operatorID.hpp"
+
 namespace parser {
-parseCommand(std::string const& command);
-parseMatCommand
-parseMatPlusCommand
+OperatorID parseCommand(std::string const& command);
 }
