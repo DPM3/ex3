@@ -6,6 +6,8 @@ class MiniCacheManager {
 	FolderManager folderManager;
 public:
 	MiniCacheManager(std::string const& workPlace);
-	bool isInCache(OperatorID const& id);
-	void addOperation(OperatorID const& id, std::string const& resultPath);
+	template<typename OpID>
+		bool isInCache(OpID const& id);
+	template<typename OpID>
+		void addOperation(OpID const& id, std::string const& resultPath);
 };
