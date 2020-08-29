@@ -2,7 +2,7 @@
 #include<cstring>
 #include<algorithm>
 
-OperatorID parser::parseCommand(std::vector<std::string> const& cmd) {
+OperatorID parseCommand(std::vector<std::string> const& cmd) {
 	switch(cmd[0]) {
 		case "matrix":
 			switch(cmd[1]) {
