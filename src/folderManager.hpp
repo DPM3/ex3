@@ -4,6 +4,9 @@
 #include<vector>
 
 class FolderManager {
+public:
+	static constexpr int s_maxSize = 69; //NICE
+private:
 	std::string m_folderPath;
 	std::string m_files[s_maxSize];
 
@@ -11,7 +14,6 @@ class FolderManager {
 	Marker m_marker;
 
 public:
-	static constexpr int s_maxSize = 69; //NICE
 
 	FolderManager(std::string const& pathToDir, int maxSize);
 	FolderManager(std::string const& pathToSavedFolder);

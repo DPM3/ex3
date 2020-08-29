@@ -8,26 +8,33 @@ struct FolderManager::Marker {
 	int m_index;
 	Marker& operator++() {
 		(++m_index) %= FolderManager::s_maxSize;
+		return *this;
 	}
-	Marker operator++(int) { ++(*this); }
+	Marker operator++(int) {
+		Marker result = *this;
+		++(*this);
+		return result;
+	}
 
 	Marker& operator--() {
 		(--m_index) %= FolderManager::s_maxSize;
+		return *this;
 	}
-	Marker operator--(int) { --(*this); }
+	Marker operator--(int) {
+		Marker result = *this;
+		--(*this);
+		return result;
+	}
 
 	operator int() {
 		return m_index;
 	}
 };
 
-FolderManager::FolderManager(std::string const& pathToDir)
-	: m_folderPath{pathToDir}, m_files(s_maxSize) { }
-
-FolderManager::FolderManager(std::string const& stateFilePath) : m_files(s_maxSize) {
-	ifstream stateFile{stateFilePath};
+FolderManager::FolderManager(std::string const& stateFilePath) {
+	std::ifstream stateFile{stateFilePath};
 	if (!stateFile) {
-		throw std::exception{"Coudn't open file: " + stateFilePath};
+		throw std::runtime_error{"Coudn't open file: " + stateFilePath};
 	}
 
 	//TODO
@@ -35,9 +42,9 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_files(s_maxSi
 
 
 void FolderManager::add(std::string const& fileName) {
-	m_files[marker++] = fileName;
+	m_files[m_marker++] = fileName;
 }
 
-bool FolderManager::fileExists(std::string const& fileName);
-void FolderManager::clear();
-void FolderManager::remove(std::string const& fileName);
+bool FolderManager::fileExists(std::string const& fileName) { return false; }
+void FolderManager::clear() { }
+void FolderManager::remove(std::string const& fileName) { }
