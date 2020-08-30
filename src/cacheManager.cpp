@@ -3,17 +3,19 @@
 #include"miniCacheManager.hpp"
 #include"calculator.hpp"
 
-
-CacheManager::CacheManager(std::string const& workPlace) {
-	if (!std::filesystem::is_directory(workPlace)) {
-		std::filesystem::create_directory(workPlace);
-	}
-
+void CacheManager::initCMs() {
 	std::array<std::string, 7> dirs = {"/mat_add", "/mat_mult", "/img_rot",
 					"/img_gs", "/hs_crc32", "/cche_clr", "/cche_srch"};
 	for (size_t i = 0; i < m_cms.size(); ++i) {
 		m_cms[i] = MiniCacheManager(workPlace + dirs[i]);
 	}
+}
+CacheManager::CacheManager(std::string const& workPlace) : workPlace{workPlace} {
+	if (!std::filesystem::is_directory(workPlace)) {
+		std::filesystem::create_directory(workPlace);
+	}
+
+	initCMs();
 }
 
 void CacheManager::runOp(OperatorID op) {
@@ -24,12 +26,26 @@ void CacheManager::runOp(OperatorID op) {
 			case OperatorID::MAT_ADD:
 				calc::matAdd(op.operands[0], op.operands[1], op.output);
 				break;
-			case OperatorID::MAT_MULT: break;
-			case OperatorID::IMG_ROT: break;
-			case OperatorID::IMG_GS: break;
-			case OperatorID::HS_CRC32: break;
-			case OperatorID::CCHE_CLR: break;
-			case OperatorID::CCHE_SRCH: break;
+			case OperatorID::MAT_MULT: 
+				calc::matMult(op.operands[0], op.operands[1], op.output);
+				break;
+			case OperatorID::IMG_ROT: 
+				calc::imgRot(op.operands[0],op.output);
+				break;
+			case OperatorID::IMG_GS: 
+				calc::imgGS(op.operands[0], op.output);
+				break;
+			case OperatorID::HS_CRC32: 
+				calc::hsCRC32(op.operands[0], op.output);
+				break;
+			case OperatorID::CCHE_CLR: 
+				for (auto cm : m_cms) {
+					std::filesystem::remove_all(cm.workPlace());
+				}
+				initCMs();
+				break;
+			case OperatorID::CCHE_SRCH: 
+				break;
 		}
 	}
 }

@@ -6,7 +6,10 @@
 
 class CacheManager {
 	std::array<MiniCacheManager,7> m_cms;
+	std::string workPlace;
 	using miniCacheType = OperatorID::OpType;
+
+	void initCMs();
 public:
 	CacheManager() = default;
 	CacheManager(std::string const& workPlace);
