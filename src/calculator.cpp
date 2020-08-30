@@ -1,15 +1,12 @@
 #include"calculator.hpp"
 #include<string>
+#include"matrixIO.hpp"
 
 //NOTE: THIS FILE IS VERY MUCH NOT FOR USE!!!!!!!!!
 //DO NOT USE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //WARNING: IF YOU USE THIS YOU WILL GET SHOT AND STABBED AND RUNOVER; YOU WILL DIE!!!!!!
 //OSI MODEL DA DA DA DA DA DA
 
-namespace {
-	void matWrite(std::string const& path); //THIS IS NOT USEABLE YET!!!!!
-	void matRead(std::string const& path);  //THIS IS NOT USEABLE YET!!!!!
-}
 void matAdd(std::string const& lhs, std::string const& rhs, std::string const& out) {
 	matWrite(matRead(lhs) + matRead(rhs), out);
 }

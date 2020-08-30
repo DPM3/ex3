@@ -2,6 +2,7 @@
 
 #include<string>
 #include<fstream>
+#include<filesystem>
 #include<exception>
 
 struct FolderManager::Marker {
@@ -31,18 +32,21 @@ struct FolderManager::Marker {
 	}
 };
 
-FolderManager::FolderManager(std::string const& stateFilePath) {
-	std::ifstream stateFile{stateFilePath};
+FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
+	std::ifstream stateFile{stateFilePath + "/STATE"};
 	if (!stateFile) {
 		throw std::runtime_error{"Coudn't open file: " + stateFilePath};
 	}
 
-	//TODO
+	for (std::string line; std::getline(stateFile, line); ) {
+		add(line, m_folderPath + "/" +  line);
+	}
 }
 
 
-void FolderManager::add(std::string const& fileName) {
+void FolderManager::add(std::string const& fileName, std::string const& fileSource) {
 	m_files[m_marker++] = fileName;
+	std::filesystem::copy_file(fileSource, m_folderPath + fileName);
 }
 
 bool FolderManager::fileExists(std::string const& fileName) { return false; }
