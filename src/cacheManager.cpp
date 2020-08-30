@@ -63,6 +63,3 @@ void CacheManager::runOp(OperatorID op) {
 		}
 	}
 }
-bool CacheManager::isOpIn(OperatorID op) {
-	return m_cms[op.type].isInCache(op);
-}
