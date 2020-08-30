@@ -1,21 +1,18 @@
 #include"cacheManager.hpp"
 #include"miniCacheManager.hpp"
 #include<filesystem>
+#include<map>
 
 
-CacheManager::CacheManager(std::string const& workPlace)
-	/*
-	: m_cms{
-	workPlace + "/mat_add",
-	workPlace + "/mat_mult",
-	workPlace + "/img_rot",
-	workPlace + "/img_gs",
-	workPlace + "/hs_crc32",
-	workPlace + "/cche_clr",
-	workPlace + "/cche_srch"
-	}*/ {
+CacheManager::CacheManager(std::string const& workPlace) {
 	if (!std::filesystem::is_directory(workPlace)) {
 		std::filesystem::create_directory(workPlace);
+	}
+
+	std::array<std::string, 7> dirs = {"/mat_add", "/mat_mult", "/img_rot",
+					"/img_gs", "/hs_crc32", "/cche_clr", "/cche_srch"};
+	for (size_t i = 0; i < m_cms.size(); ++i) {
+		m_cms[i] = MiniCacheManager(workPlace + dirs[i]);
 	}
 }
 

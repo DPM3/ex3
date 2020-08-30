@@ -2,9 +2,10 @@
 
 #include"operatorID.hpp"
 #include"miniCacheManager.hpp"
+#include<array>
 
 class CacheManager {
-	MiniCacheManager m_cms[7];
+	std::array<MiniCacheManager,7> m_cms;
 	using miniCacheType = OperatorID::OpType;
 public:
 	CacheManager() = default;
