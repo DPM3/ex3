@@ -15,6 +15,7 @@ private:
 
 public:
 
+	FolderManager() = default;
 	FolderManager(std::string const& pathToDir, int maxSize);
 	FolderManager(std::string const& pathToSavedFolder);
 

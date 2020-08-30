@@ -1,3 +1,4 @@
+#pragma once
 #include<string>
 #include"folderManager.hpp"
 #include"operatorID.hpp"
@@ -5,9 +6,9 @@
 class MiniCacheManager {
 	FolderManager folderManager;
 public:
+	MiniCacheManager() = default;
 	MiniCacheManager(std::string const& workPlace);
-	template<typename OpID>
-		bool isInCache(OpID const& id);
-	template<typename OpID>
-		void addOperation(OpID const& id, std::string const& resultPath);
+	bool isInCache(OperatorID const& id);
+	void addOperation(OperatorID const& id, std::string const& resultPath);
+	std::string getFileName(OperatorID const& id);
 };

@@ -1,5 +1,5 @@
 struct OperatorID {
-	enum class OpType{
+	enum OpType{
 		MAT_ADD,
 		MAT_MULT,
 		IMG_ROT,
