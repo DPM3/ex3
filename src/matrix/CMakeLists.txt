@@ -4,7 +4,8 @@ set(C_STANDARD C99)
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 
 #compile libmatrix.so
-add_library(matrix SHARED Matrix.c ErrorCode.c )
+add_library(matrix SHARED Matrix.c ErrorCode.c)
+add_library(matrixClass SHARED MatrixClass.cpp)
 
 #compile tester
 add_executable(tester Test.c)
