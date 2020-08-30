@@ -39,7 +39,7 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
 	}
 
 	for (std::string line; std::getline(stateFile, line); ) {
-		add(line, m_folderPath + "/" +  line);
+		m_files[m_marker++] = line;
 	}
 }
 
@@ -49,6 +49,13 @@ void FolderManager::add(std::string const& fileName, std::string const& fileSour
 	std::filesystem::copy_file(fileSource, m_folderPath + fileName);
 }
 
-bool FolderManager::fileExists(std::string const& fileName) { return false; }
+bool FolderManager::fileExists(std::string const& fileName) {
+	for (auto fname : m_files) {
+		if (fname == fileName) {
+			return true;
+		}
+	}
+	return false;
+}
 void FolderManager::clear() { }
 void FolderManager::remove(std::string const& fileName) { }
