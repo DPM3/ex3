@@ -1,3 +1,5 @@
+#include<string>
+#include<vector>
 struct OperatorID {
 	enum OpType{
 		MAT_ADD,

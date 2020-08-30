@@ -1,7 +1,7 @@
 #include"cacheManager.hpp"
-#include"miniCacheManager.hpp"
 #include<filesystem>
-#include<map>
+#include"miniCacheManager.hpp"
+#include"calculator.hpp"
 
 
 CacheManager::CacheManager(std::string const& workPlace) {
@@ -18,9 +18,19 @@ CacheManager::CacheManager(std::string const& workPlace) {
 
 void CacheManager::runOp(OperatorID op) {
 	if (m_cms[op.type].isInCache(op)) {
-		//TODO: copy to op.outPath
+		std::filesystem::copy_file(m_cms[op.type].getFileName(op), op.output);
 	} else {
-		//TODO: actually calculate the result
+		switch(op.type) {
+			case OperatorID::MAT_ADD:
+				calc::matAdd(op.operands[0], op.operands[1], op.output);
+				break;
+			case OperatorID::MAT_MULT: break;
+			case OperatorID::IMG_ROT: break;
+			case OperatorID::IMG_GS: break;
+			case OperatorID::HS_CRC32: break;
+			case OperatorID::CCHE_CLR: break;
+			case OperatorID::CCHE_SRCH: break;
+		}
 	}
 }
 bool CacheManager::isOpIn(OperatorID op) {
