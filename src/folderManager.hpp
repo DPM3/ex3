@@ -16,10 +16,9 @@ private:
 public:
 
 	FolderManager() = default;
-	FolderManager(std::string const& pathToDir, int maxSize);
-	FolderManager(std::string const& pathToSavedFolder);
+	FolderManager(std::string const& pathToDir);
 
-	void add(std::string const& fileName); //takes care of removing from cache
+	void add(std::string const& fileName, std::string const& fileSource); //takes care of removing from cache last file
 	bool fileExists(std::string const& fileName);
 	void clear();
 	void save(std::string const& path);
