@@ -23,7 +23,4 @@ public:
 	void clear();
 	void save(std::string const& path);
 	std::string folderPath();
-
-private:
-	void remove(std::string const& fileName);
 };

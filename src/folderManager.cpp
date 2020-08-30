@@ -30,6 +30,10 @@ struct FolderManager::Marker {
 	operator int() {
 		return m_index;
 	}
+
+	int& index() {
+		return m_index;
+	}
 };
 
 FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
@@ -57,5 +61,10 @@ bool FolderManager::fileExists(std::string const& fileName) {
 	}
 	return false;
 }
-void FolderManager::clear() { }
-void FolderManager::remove(std::string const& fileName) { }
+void FolderManager::clear() {
+	for (auto& fname : m_files) {
+		std::filesystem::remove(m_folderPath + fname);
+		fname = "";
+	}
+	m_marker.index() = 0;
+}
