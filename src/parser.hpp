@@ -2,4 +2,4 @@
 
 #include"operatorID.hpp"
 
-OperatorID parseCommand(std::string const& command);
+OperatorID parseCommand(std::vector<std::string> const& cmd);
