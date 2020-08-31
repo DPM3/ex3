@@ -78,5 +78,7 @@ std::string FolderManager::folderPath() {
 }
 
 void FolderManager::remove(std::string const& fileName) {
-	std::filesystem::remove(m_folderPath + fileName);
+	if (std::filesystem::exists(m_folderPath + fileName)) {
+		std::filesystem::remove(m_folderPath + fileName);
+	}
 }
