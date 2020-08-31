@@ -5,10 +5,12 @@
 #include<filesystem>
 #include<exception>
 
-struct FolderManager::Marker {
+class FolderManager::Marker {
 	int m_index;
+public:
 	Marker& operator++() {
-		(++m_index) %= FolderManager::s_maxSize;
+		++m_index;
+		m_index -= m_index >= s_maxSize ? s_maxSize : 0;
 		return *this;
 	}
 	Marker operator++(int) {
@@ -18,7 +20,8 @@ struct FolderManager::Marker {
 	}
 
 	Marker& operator--() {
-		(--m_index) %= FolderManager::s_maxSize;
+		--m_index;
+		m_index += m_index < 0 ? s_maxSize : 0;
 		return *this;
 	}
 	Marker operator--(int) {
@@ -49,7 +52,8 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
 
 
 void FolderManager::add(std::string const& fileName, std::string const& fileSource) {
-	m_files[m_marker++] = fileName;
+	remove(m_files[++m_marker]);
+	m_files[m_marker] = fileName;
 	std::filesystem::copy_file(fileSource, m_folderPath + fileName);
 }
 
@@ -63,8 +67,12 @@ bool FolderManager::fileExists(std::string const& fileName) {
 }
 void FolderManager::clear() {
 	for (auto& fname : m_files) {
-		std::filesystem::remove(m_folderPath + fname);
+		remove(fname);
 		fname = "";
 	}
 	m_marker.index() = 0;
+}
+
+void FolderManager::remove(std::string const& fileName) {
+	std::filesystem::remove(m_folderPath + fileName);
 }

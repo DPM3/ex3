@@ -10,7 +10,7 @@ private:
 	std::string m_folderPath;
 	std::string m_files[s_maxSize];
 
-	struct Marker;
+	class Marker;
 	Marker m_marker;
 
 public:
@@ -23,4 +23,6 @@ public:
 	void clear();
 	void save(std::string const& path);
 	std::string folderPath();
+private:
+	void remove(std::string const& fileName);
 };
