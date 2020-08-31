@@ -23,15 +23,57 @@ private:
 	Marker m_marker;
 
 public:
-
+	/**
+	 * @brief default constructor
+	 */
 	FolderManager() = default;
+
+	/**
+     * @brief real constructor
+     *
+     * @param[in] pathToDir. path to directory (work place)
+     */
 	FolderManager(std::string const& pathToDir);
 
+	/**
+     * @brief add file to cache
+     *
+     * @param[in] fileName. the name of the file
+     * @param[in] fileSource. the file's result
+     */
 	void add(std::string const& fileName, std::string const& fileSource); //takes care of removing from cache last file
+
+	/**
+     * @brief checks if file exists
+     *
+     * @param[in] fileName. name of the file
+     * @return boolean
+     */
 	bool fileExists(std::string const& fileName);
+
+	/**
+     * @brief clears folder manager
+     */
 	void clear();
+
+	/**
+     * @brief save
+     *
+     * @param[in] path. path to save to
+     */
 	void save(std::string const& path);
+
+	/**
+     * @brief returns path to folder
+     *
+     * @return string
+     */
 	std::string folderPath();
 private:
+	/**
+     * @brief removes file (help for add function)
+     *
+     * @param[in] fileName. name of file
+     */
 	void remove(std::string const& fileName);
 };
