@@ -10,9 +10,15 @@
 void matAdd(std::string const& lhs, std::string const& rhs, std::string const& out) {
 	matWrite(matRead(lhs) + matRead(rhs), out);
 }
+
 void matMult(std::string const& lhs, std::string const& rhs, std::string const& out) {
 	matWrite(matRead(lhs) * matRead(rhs), out);
 }
+
 void imgRot(std::string const& in, std::string const& out);
+
 void imgGS(std::string const& in, std::string const& out);
-void hsCrc32(std::string const& in, std::string const& out);
+
+void hsCrc32(std::string const& in, std::string const& out) {
+	out = std::to_string(calculate_crc32c(0xFFFFFFFF, in, in.size()));
+}
