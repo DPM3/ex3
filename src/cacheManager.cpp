@@ -36,6 +36,7 @@ void CacheManager::runOp(OperatorID op) {
 				break;
 			case OperatorID::IMG_ROT:
 				calc::imgRot(op.operands[0],op.output);
+				std::cout << "survived operation" << std::endl;
 				m_cms[op.type].addOp(op, op.output);
 				break;
 			case OperatorID::IMG_GS:
