@@ -2,5 +2,5 @@
 #include<string>
 #include"matrix/MatrixClass.hpp"
 
-MatrixClass matWrite(std::string const& path);
+void matWrite(MatrixClass mat, std::string const& path);
 MatrixClass matRead(std::string const& path);

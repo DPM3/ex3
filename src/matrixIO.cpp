@@ -1,15 +1,17 @@
 #include"matrixIO.hpp"
 #include<fstream>
 #include<string>
+#include<vector>
+#include<iostream>
 #include"matrix/MatrixClass.hpp"
 
 void matWrite(MatrixClass mat, std::string const& path) {
-	ofstream ofs (path);
+	std::ofstream ofs (path);
 	if (!ofs) {
-		throw runtime_error("could not open file for writing: " + path);
+		throw std::runtime_error("could not open file for writing: " + path);
 	}
-	for (int i = 0; i < mat.getHeight(); ++i) {
-	for (int j = 0; j < mat.getWidth(); ++j) {
+	for (uint32_t i = 0; i < mat.getHeight(); ++i) {
+	for (uint32_t j = 0; j < mat.getWidth(); ++j) {
 		ofs << mat(i,j);
 		if (j != mat.getWidth() - 1) {
 			ofs << ",";
@@ -18,9 +20,9 @@ void matWrite(MatrixClass mat, std::string const& path) {
 	}
 }
 MatrixClass matRead(std::string const& path) {
-	ifstream ifs (path);
+	std::ifstream ifs (path);
 	if (!ifs) {
-		throw runtime_error("could not open file for reading: " + path);
+		throw std::runtime_error("could not open file for reading: " + path);
 	}
 
 	std::string num;
@@ -48,9 +50,9 @@ MatrixClass matRead(std::string const& path) {
 	}
 
 	MatrixClass mat (i + 1, j + 1);
-	for (int i = 0; i < mat.getHeight(); ++i) {
-	for (int j = 0; j < mat.getWidth(); ++j) {
-		mat.setValue(i, j, content[i * mat.getWidth() + j]);
+	for (uint32_t i = 0; i < mat.getHeight(); ++i) {
+	for (uint32_t j = 0; j < mat.getWidth(); ++j) {
+		mat.setValue(i, j, std::stoi(content[i * mat.getWidth() + j]));
 	}
 	}
 

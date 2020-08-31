@@ -4,9 +4,9 @@
 
 #include <memory>
 #include <cstdint>
+using std::uint32_t;
 
 class MatrixClass{
-using std::uint32_t;
 //Fields
 PMatrix _matrix;
 

@@ -9,13 +9,13 @@ typedef struct Matrix {
 
 ErrorCode matrix_create(PMatrix* matrix, uint32_t height, uint32_t width) {
 	*matrix = malloc(sizeof(Matrix));
-	if (matrix == NULL) { return ERROR_NO_MEMORY; }
+	if (matrix == NULL) { return ERROR_ALLOCATING_MEMORY; }
 	(*matrix)->rows = height;
 	(*matrix)->cols = width;
 	(*matrix)->data = malloc(sizeof(double) * height * width);
 	if ((*matrix)->data == NULL) {
 		free(*matrix);
-		return ERROR_NO_MEMORY;
+		return ERROR_ALLOCATING_MEMORY;
 	}
 	return ERROR_SUCCESS;
 }
@@ -68,7 +68,7 @@ ErrorCode matrix_getValue(CPMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
 
 ErrorCode matrix_add(PMatrix* result, CPMatrix lhs, CPMatrix rhs) {
 	if (lhs->rows != rhs->rows || lhs->cols != rhs->cols) {
-		return ERROR_MATRIX_SIZE;
+		return ERROR_MATRIXES_IN_DIFFERENT_SIZE;
 	}
 
 	ErrorCode err = matrix_create(result, lhs->rows, rhs->cols);

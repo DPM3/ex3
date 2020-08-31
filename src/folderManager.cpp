@@ -36,13 +36,17 @@ int& FolderManager::Marker::index() {
 }
 
 FolderManager::FolderManager(std::string const& stateFilePath) : m_marker() {
-	std::ifstream stateFile{stateFilePath + "/STATE"};
-	if (!stateFile) {
-		throw std::runtime_error{"Coudn't open file: " + stateFilePath};
+	if (!std::filesystem::is_directory(stateFilePath)) {
+		std::filesystem::create_directory(stateFilePath);
 	}
-
-	for (std::string line; std::getline(stateFile, line); ) {
-		m_files[m_marker++] = line;
+	if (std::filesystem::exists(stateFilePath + "/STATE")) {
+		std::ifstream stateFile{stateFilePath + "/STATE"};
+		if (!stateFile) {
+			throw std::runtime_error{"Coudn't open folder: " + stateFilePath};
+		}
+		for (std::string line; std::getline(stateFile, line); ) {
+			m_files[m_marker++] = line;
+		}
 	}
 }
 
@@ -67,6 +71,10 @@ void FolderManager::clear() {
 		fname = "";
 	}
 	m_marker.index() = 0;
+}
+
+std::string FolderManager::folderPath() {
+	return m_folderPath;
 }
 
 void FolderManager::remove(std::string const& fileName) {

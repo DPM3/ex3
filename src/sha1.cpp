@@ -1,12 +1,15 @@
 #include"sha1.hpp"
 
 //this file is an implementation of sha1 we found online.
-export "C" {
+extern "C" {
 #include"sha1Lib.c"
 }
 
 std::string sha1(std::string const& content) {
-	char* result;
-	sha1digest(NULL, result, content.c_str(), content.size()+1); //I know I'm using NULL, it's because this is a C func
+	char result[41];
+
+	//I know I'm using NULL, it's because this is a C func
+	sha1digest(NULL, result, reinterpret_cast<const uint8_t*>(content.c_str()), content.size()+1);
+
 	return std::string {result};
 }

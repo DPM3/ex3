@@ -3,12 +3,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 typedef enum {
     // DON'T CHANGE THIS VALUE!
     ERROR_SUCCESS = 0,
-	ERROR_FAILURE,
-	ERROR_NO_MEMORY,
-	ERROR_MATRIX_SIZE
+    ERROR_ALLOCATING_MEMORY = 1,
+    ERROR_PARAMETER_IS_NULL = 2,
+    ERROR_INDEX_OUT_OF_BOUNDARY = 3,
+    ERROR_MATRIXES_IN_DIFFERENT_SIZE = 4,
+    ERROR_MATRIXES_CANT_BE_MULTIPLIED = 5,
+    ERROR_MATRIX_IS_NOT_INTALIZED_WELL = 6, //one or more value in the matrix is NULL
+    ERROR_MATRIX_SIZE_EQUALS_ZERO = 7
 } ErrorCode;
 
 /**
@@ -26,3 +34,6 @@ bool error_isSuccess(ErrorCode code);
  * @return const char* the textual representation of the error code.
  */
 const char* error_getErrorMessage(ErrorCode code);
+#ifdef __cplusplus
+}
+#endif
