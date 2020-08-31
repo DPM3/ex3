@@ -5,41 +5,37 @@
 #include<filesystem>
 #include<exception>
 
-class FolderManager::Marker {
-	int m_index;
-public:
-	Marker& operator++() {
-		++m_index;
-		m_index -= m_index >= s_maxSize ? s_maxSize : 0;
-		return *this;
-	}
-	Marker operator++(int) {
-		Marker result = *this;
-		++(*this);
-		return result;
-	}
+FolderManager::Marker& FolderManager::Marker::operator++() {
+	++m_index;
+	m_index -= m_index >= s_maxSize ? s_maxSize : 0;
+	return *this;
+}
+FolderManager::Marker FolderManager::Marker::operator++(int) {
+	Marker result = *this;
+	++(*this);
+	return result;
+}
 
-	Marker& operator--() {
-		--m_index;
-		m_index += m_index < 0 ? s_maxSize : 0;
-		return *this;
-	}
-	Marker operator--(int) {
-		Marker result = *this;
-		--(*this);
-		return result;
-	}
+FolderManager::Marker& FolderManager::Marker::operator--() {
+	--m_index;
+	m_index += m_index < 0 ? s_maxSize : 0;
+	return *this;
+}
+FolderManager::Marker FolderManager::Marker::operator--(int) {
+	Marker result = *this;
+	--(*this);
+	return result;
+}
 
-	operator int() {
-		return m_index;
-	}
+FolderManager::Marker::operator int() {
+	return m_index;
+}
 
-	int& index() {
-		return m_index;
-	}
-};
+int& FolderManager::Marker::index() {
+	return m_index;
+}
 
-FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
+FolderManager::FolderManager(std::string const& stateFilePath) : m_marker() {
 	std::ifstream stateFile{stateFilePath + "/STATE"};
 	if (!stateFile) {
 		throw std::runtime_error{"Coudn't open file: " + stateFilePath};

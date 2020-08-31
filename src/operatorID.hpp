@@ -1,6 +1,7 @@
+#pragma once
 #include<string>
 #include<vector>
-#include"sha1.hpp"
+
 struct OperatorID {
 	enum OpType{
 		MAT_ADD,

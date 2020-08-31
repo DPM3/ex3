@@ -10,7 +10,16 @@ private:
 	std::string m_folderPath;
 	std::string m_files[s_maxSize];
 
-	class Marker;
+	class Marker {
+		int m_index;
+	public:
+		Marker& operator++();
+		Marker operator++(int);
+		Marker& operator--();
+		Marker operator--(int);
+		operator int();
+		int& index();
+	};
 	Marker m_marker;
 
 public:
