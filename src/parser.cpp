@@ -6,9 +6,6 @@
 #include"operatorID.hpp"
 
 OperatorID parseCommand(std::vector<std::string> const& cmd) {
-	for (auto word : cmd) {
-		std::cout << word;
-	}
 	//using if-else because switch statements only work for integers... oof
 	if (cmd[0] == "matrix") {
 		if (cmd[1] == "add") {
