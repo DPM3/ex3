@@ -5,38 +5,37 @@
 #include<filesystem>
 #include<exception>
 
-struct FolderManager::Marker {
-	int m_index;
-	Marker& operator++() {
-		(++m_index) %= FolderManager::s_maxSize;
-		return *this;
-	}
-	Marker operator++(int) {
-		Marker result = *this;
-		++(*this);
-		return result;
-	}
+FolderManager::Marker& FolderManager::Marker::operator++() {
+	++m_index;
+	m_index -= m_index >= s_maxSize ? s_maxSize : 0;
+	return *this;
+}
+FolderManager::Marker FolderManager::Marker::operator++(int) {
+	Marker result = *this;
+	++(*this);
+	return result;
+}
 
-	Marker& operator--() {
-		(--m_index) %= FolderManager::s_maxSize;
-		return *this;
-	}
-	Marker operator--(int) {
-		Marker result = *this;
-		--(*this);
-		return result;
-	}
+FolderManager::Marker& FolderManager::Marker::operator--() {
+	--m_index;
+	m_index += m_index < 0 ? s_maxSize : 0;
+	return *this;
+}
+FolderManager::Marker FolderManager::Marker::operator--(int) {
+	Marker result = *this;
+	--(*this);
+	return result;
+}
 
-	operator int() {
-		return m_index;
-	}
+FolderManager::Marker::operator int() {
+	return m_index;
+}
 
-	int& index() {
-		return m_index;
-	}
-};
+int& FolderManager::Marker::index() {
+	return m_index;
+}
 
-FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
+FolderManager::FolderManager(std::string const& stateFilePath) : m_marker() {
 	std::ifstream stateFile{stateFilePath + "/STATE"};
 	if (!stateFile) {
 		throw std::runtime_error{"Coudn't open file: " + stateFilePath};
@@ -49,7 +48,8 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_marker{0} {
 
 
 void FolderManager::add(std::string const& fileName, std::string const& fileSource) {
-	m_files[m_marker++] = fileName;
+	remove(m_files[++m_marker]);
+	m_files[m_marker] = fileName;
 	std::filesystem::copy_file(fileSource, m_folderPath + fileName);
 }
 
@@ -63,8 +63,12 @@ bool FolderManager::fileExists(std::string const& fileName) {
 }
 void FolderManager::clear() {
 	for (auto& fname : m_files) {
-		std::filesystem::remove(m_folderPath + fname);
+		remove(fname);
 		fname = "";
 	}
 	m_marker.index() = 0;
+}
+
+void FolderManager::remove(std::string const& fileName) {
+	std::filesystem::remove(m_folderPath + fileName);
 }

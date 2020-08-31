@@ -14,5 +14,4 @@ public:
 	CacheManager() = default;
 	CacheManager(std::string const& workPlace);
 	void runOp(OperatorID op);
-	bool isOpIn(OperatorID op);
 };

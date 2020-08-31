@@ -1,4 +1,6 @@
 #pragma once
 #include<string>
-void matWrite(std::string const& path); //THIS IS NOT USEABLE YET!!!!!
-void matRead(std::string const& path);  //THIS IS NOT USEABLE YET!!!!!
+#include"matrix/MatrixClass.hpp"
+
+MatrixClass matWrite(std::string const& path);
+MatrixClass matRead(std::string const& path);
