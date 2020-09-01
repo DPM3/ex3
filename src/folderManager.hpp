@@ -30,7 +30,7 @@ public:
 	void add(std::string const& fileName, std::string const& fileSource); //takes care of removing from cache last file
 	bool fileExists(std::string const& fileName);
 	void clear();
-	void save(std::string const& path);
+	void save();
 	std::string folderPath();
 private:
 	void remove(std::string const& fileName);

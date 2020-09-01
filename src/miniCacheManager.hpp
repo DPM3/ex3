@@ -4,7 +4,7 @@
 #include"operatorID.hpp"
 
 class MiniCacheManager {
-	FolderManager folderManager;
+	FolderManager m_folderManager;
 public:
 	MiniCacheManager() = default;
 	MiniCacheManager(std::string const& workPlace);
@@ -12,4 +12,5 @@ public:
 	void addOp(OperatorID const& id, std::string const& resultPath);
 	std::string getFileName(OperatorID const& id);
 	std::string workPlace();
+	void save();
 };

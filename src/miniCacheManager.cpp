@@ -2,7 +2,7 @@
 #include<string>
 #include<operatorID.hpp>
 
-MiniCacheManager::MiniCacheManager(std::string const& workPlace) : folderManager(workPlace) { }
+MiniCacheManager::MiniCacheManager(std::string const& workPlace) : m_folderManager(workPlace) { }
 
 bool MiniCacheManager::isInCache(OperatorID const& id) {
 	if (id.type == OperatorID::CCHE_CLR ||
@@ -10,14 +10,18 @@ bool MiniCacheManager::isInCache(OperatorID const& id) {
 
 		return false;
 	}
-	return folderManager.fileExists(hash(id));
+	return m_folderManager.fileExists(hash(id));
 }
 void MiniCacheManager::addOp(OperatorID const& id, std::string const& resultPath) {
-	folderManager.add(hash(id), resultPath);
+	m_folderManager.add(hash(id), resultPath);
 }
 std::string MiniCacheManager::getFileName(OperatorID const& id) {
 	return workPlace() + hash(id);
 }
 std::string MiniCacheManager::workPlace() {
-	return folderManager.folderPath();
+	return m_folderManager.folderPath();
+}
+
+void MiniCacheManager::save() {
+	m_folderManager.save();
 }

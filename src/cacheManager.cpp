@@ -66,3 +66,9 @@ void CacheManager::runOp(OperatorID op) {
 		}
 	}
 }
+
+void CacheManager::save() {
+	for (auto cm : m_cms) {
+		cm.save();
+	}
+}

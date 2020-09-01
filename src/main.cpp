@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
 		}
 		OperatorID op = parseCommand(args);
 		cm.runOp(op);
+		cm.save();
 	} catch (std::exception& e) {
 		std::cout << "ERROR -- EXCEPTION THROWN:" << std::endl << e.what() << std::endl;
 	}
