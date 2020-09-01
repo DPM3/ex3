@@ -4,6 +4,7 @@
 #include<fstream>
 #include<filesystem>
 #include<exception>
+#include<iostream>
 
 FolderManager::Marker& FolderManager::Marker::operator++() {
 	++m_index;
@@ -35,7 +36,7 @@ int& FolderManager::Marker::index() {
 	return m_index;
 }
 
-FolderManager::FolderManager(std::string const& stateFilePath) : m_marker() {
+FolderManager::FolderManager(std::string const& stateFilePath) : m_folderPath(stateFilePath), m_marker() {
 	if (!std::filesystem::is_directory(stateFilePath)) {
 		std::filesystem::create_directory(stateFilePath);
 	}
@@ -52,9 +53,14 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_marker() {
 
 
 void FolderManager::add(std::string const& fileName, std::string const& fileSource) {
+	std::cout << "adding to the folder: " << m_folderPath << " this file: " << fileName << std::endl;;
 	remove(m_files[++m_marker]);
 	m_files[m_marker] = fileName;
-	std::filesystem::copy_file(fileSource, m_folderPath + fileName);
+	if (std::filesystem::exists(m_folderPath + "/" + fileName)) {
+		std::filesystem::copy_file(fileSource, m_folderPath + "/" +  fileName, std::filesystem::copy_options::overwrite_existing);
+	} else {
+		std::filesystem::copy_file(fileSource, m_folderPath + "/" +  fileName);
+	}
 }
 
 bool FolderManager::fileExists(std::string const& fileName) {
@@ -78,7 +84,8 @@ std::string FolderManager::folderPath() {
 }
 
 void FolderManager::remove(std::string const& fileName) {
-	if (std::filesystem::exists(m_folderPath + fileName)) {
-		std::filesystem::remove(m_folderPath + fileName);
+	if (std::filesystem::exists(m_folderPath + fileName) &&
+		!std::filesystem::is_directory(m_folderPath + fileName)) {
+		std::filesystem::remove(m_folderPath + "/" + fileName);
 	}
 }

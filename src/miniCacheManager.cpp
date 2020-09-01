@@ -5,6 +5,11 @@
 MiniCacheManager::MiniCacheManager(std::string const& workPlace) : folderManager(workPlace) { }
 
 bool MiniCacheManager::isInCache(OperatorID const& id) {
+	if (id.type == OperatorID::CCHE_CLR ||
+			id.type == OperatorID::CCHE_SRCH) {
+
+		return false;
+	}
 	return folderManager.fileExists(hash(id));
 }
 void MiniCacheManager::addOp(OperatorID const& id, std::string const& resultPath) {

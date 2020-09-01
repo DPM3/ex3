@@ -28,9 +28,11 @@ OperatorID parseCommand(std::vector<std::string> const& cmd) {
 			return OperatorID{OperatorID::CCHE_CLR, {}, ""};
 		} else if (cmd[1] == "search") {
 			std::vector<std::string> operands;
+			std::cout << "searching!" << std::endl;
 			std::for_each(cmd.begin() + 2, cmd.end(), [&operands](std::string const& str) {
-				operands.emplace_back(str);
+				operands.push_back(str);
 			});
+			std::cout << "searching again!" << std::endl;
 			return OperatorID{OperatorID::CCHE_SRCH, operands, ""};
 		}
 	}

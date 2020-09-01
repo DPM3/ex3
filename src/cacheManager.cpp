@@ -23,7 +23,8 @@ CacheManager::CacheManager(std::string const& workPlace) : workPlace{workPlace} 
 
 void CacheManager::runOp(OperatorID op) {
 	if (m_cms[op.type].isInCache(op)) {
-		std::filesystem::copy_file(m_cms[op.type].getFileName(op), op.output);
+		std::filesystem::copy_file(m_cms[op.type].getFileName(op), op.output,
+				std::filesystem::copy_options::overwrite_existing);
 	} else {
 		switch(op.type) {
 			case OperatorID::MAT_ADD:
@@ -55,6 +56,7 @@ void CacheManager::runOp(OperatorID op) {
 				break;
 			case OperatorID::CCHE_SRCH:
 				OperatorID actualOp = parseCommand(op.operands);
+				std::cout << "survived understanding" << std::endl;
 				if (m_cms[actualOp.type].isInCache(actualOp)) {
 					std::cout << "Found In Cache" << std::endl;
 				} else {
