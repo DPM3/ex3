@@ -37,7 +37,6 @@ void CacheManager::runOp(OperatorID op) {
 				break;
 			case OperatorID::IMG_ROT:
 				calc::imgRot(op.operands[0],op.output);
-				std::cout << "survived operation" << std::endl;
 				m_cms[op.type].addOp(op, op.output);
 				break;
 			case OperatorID::IMG_GS:
@@ -56,7 +55,6 @@ void CacheManager::runOp(OperatorID op) {
 				break;
 			case OperatorID::CCHE_SRCH:
 				OperatorID actualOp = parseCommand(op.operands);
-				std::cout << "survived understanding" << std::endl;
 				if (m_cms[actualOp.type].isInCache(actualOp)) {
 					std::cout << "Found In Cache" << std::endl;
 				} else {

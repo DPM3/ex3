@@ -4,6 +4,7 @@
 #include"cacheManager.hpp"
 #include"parser.hpp"
 #include"operatorID.hpp"
+#include"matrix/ErrorCodeException.hpp"
 
 int main(int argc, char** argv) {
 	try {
@@ -17,5 +18,8 @@ int main(int argc, char** argv) {
 		cm.save();
 	} catch (std::exception& e) {
 		std::cout << "ERROR -- EXCEPTION THROWN:" << std::endl << e.what() << std::endl;
+	} catch (ErrorCodeException& e) {
+		std::cout << "ERROR -- EXCEPTION THROWN:" << std::endl;
+		e.printErrorMessage();
 	}
 }

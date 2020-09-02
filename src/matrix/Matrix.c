@@ -90,6 +90,9 @@ ErrorCode matrix_add(PMatrix* result, CPMatrix lhs, CPMatrix rhs) {
 }
 
 ErrorCode matrix_multiplyMatrices(PMatrix* result, CPMatrix lhs, CPMatrix rhs) {
+	if (lhs->cols != rhs->rows) {
+		return ERROR_MATRIXES_CANT_BE_MULTIPLIED;
+	}
 	ErrorCode err = matrix_create(result, lhs->rows, rhs->cols);
 	if (!error_isSuccess(err)) {
 		return err;

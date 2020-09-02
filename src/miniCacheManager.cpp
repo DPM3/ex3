@@ -16,7 +16,7 @@ void MiniCacheManager::addOp(OperatorID const& id, std::string const& resultPath
 	m_folderManager.add(hash(id), resultPath);
 }
 std::string MiniCacheManager::getFileName(OperatorID const& id) {
-	return workPlace() + hash(id);
+	return workPlace() +"/"+ hash(id);
 }
 std::string MiniCacheManager::workPlace() {
 	return m_folderManager.folderPath();

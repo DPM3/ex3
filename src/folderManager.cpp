@@ -54,7 +54,6 @@ FolderManager::FolderManager(std::string const& stateFilePath) : m_folderPath(st
 
 
 void FolderManager::add(std::string const& fileName, std::string const& fileSource) {
-	std::cout << "adding to the folder: " << m_folderPath << " this file: " << fileName << std::endl;;
 	remove(m_files[++m_marker]);
 	m_files[m_marker] = fileName;
 	if (std::filesystem::exists(m_folderPath + "/" + fileName)) {
