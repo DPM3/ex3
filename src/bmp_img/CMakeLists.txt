@@ -1,0 +1,14 @@
+project(Ex2)
+cmake_minimum_required(VERSION 3.0.0)
+set(C_STANDARD C99)
+set(CXX_STANDARD C++17)
+set(C_COMPILER_ID GNU)
+set(CXX_COMPILER_ID GNU)
+add_compile_options(-Wall -Wextra -pedantic -Werror)
+include_directories(${CMAKE_SOURCE_DIR})
+
+add_library(color SHARED Color.cpp)
+add_library(bmpImg SHARED BMPImg.cpp)
+add_library(bmpTester SHARED bmp_tester.cpp)
+
+target_link_libraries(bmpTester bmpImg color)
