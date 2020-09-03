@@ -45,7 +45,7 @@ public:
 	/**
      * @brief returns mini cache's work place
      *
-     * @return string 
+     * @return string
      */
 	std::string workPlace();
 	void save();
