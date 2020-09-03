@@ -2,12 +2,21 @@
 #include<iostream>
 #include<fstream>
 #include<cmath>
+#include<exception>
 #include"file_reading.cpp"
 
 struct BMPImg::Loader {
 	//exceptions:
-	class CorruptBMPFile { };
-	class BadFile { };
+	class CorruptBMPFile : public std::exception {
+		std::string m_errorMessage;
+	public:
+		CorruptBMPFile() {
+			m_errorMessage = "CORRUPT BMP FILE";
+		}
+		const char* what() const noexcept override {
+			return m_errorMessage.c_str();
+		}
+	};
 
 	Loader() = default;
 
@@ -196,7 +205,7 @@ BMPImg::BMPImg(std::string const& path) : BMPImg{} {
 	load(path);
 }
 
-BMPImg::BMPImg(int width, int height) 
+BMPImg::BMPImg(int width, int height)
 	: m_width{width}, m_height{height}, m_data(width * height) { }
 
 void BMPImg::load(std::string const& path) {
