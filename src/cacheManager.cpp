@@ -54,6 +54,7 @@ void CacheManager::runOp(OperatorID op) {
 				initCMs();
 				break;
 			case OperatorID::CCHE_SRCH:
+				op.operands.push_back(""); //this is to simulate an output parameter
 				OperatorID actualOp = parseCommand(op.operands);
 				if (m_cms[actualOp.type].isInCache(actualOp)) {
 					std::cout << "Found In Cache" << std::endl;

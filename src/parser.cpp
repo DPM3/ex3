@@ -8,18 +8,27 @@
 OperatorID parseCommand(std::vector<std::string> const& cmd) {
 	//using if-else because switch statements only work for integers... oof
 	if (cmd[0] == "matrix") {
-		if (cmd[1] == "add") {
+		if (cmd.size() != 5) {
+			throw std::runtime_error("not enough or too many operands");
+		}
+		if (cmd.at(1) == "add") {
 			return OperatorID{OperatorID::MAT_ADD, {cmd[2], cmd[3]}, cmd[4]};
 		} else if (cmd[1] == "multiply") {
 			return OperatorID{OperatorID::MAT_MULT, {cmd[2], cmd[3]}, cmd[4]};
 		}
 	} else if (cmd[0] == "image") {
+		if (cmd.size() != 4) {
+			throw std::runtime_error("not enough or too many operands");
+		}
 		if (cmd[1] == "rotate") {
 			return OperatorID{OperatorID::IMG_ROT, {cmd[2]}, cmd[3]};
 		} else if (cmd[1] == "convert") {
 			return OperatorID{OperatorID::IMG_GS, {cmd[2]}, cmd[3]};
 		}
 	} else if (cmd[0] == "hash") {
+		if (cmd.size() != 4) {
+			throw std::runtime_error("not enough or too many operands");
+		}
 		if (cmd[1] == "crc32") {
 			return OperatorID{OperatorID::HS_CRC32, {cmd[2]}, cmd[3]};
 		}

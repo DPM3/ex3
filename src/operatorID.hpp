@@ -3,7 +3,7 @@
 #include<vector>
 
 struct OperatorID {
-	enum OpType{
+	enum OpType{ //Yes, this is an enum, and not enum class on perpose. You can't do: arr[MAT_ADD] with enum class.
 		MAT_ADD,
 		MAT_MULT,
 		IMG_ROT,
