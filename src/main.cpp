@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
 	for (size_t i = 0; i < std::strlen(argv[0]) - std::strlen("ex3.out"); ++i) {
 		pathToExec += argv[0][i];
 	}
+
 	try {
 		CacheManager cm (pathToExec + "cache");
 		std::vector<std::string> args;
