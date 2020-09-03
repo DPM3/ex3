@@ -1,4 +1,4 @@
-# Advanced Programming Excercise 3 (in the works still)
+# Advanced Programming Excercise 3
 
 
 ## Cache Structure:
