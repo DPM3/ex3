@@ -17,4 +17,10 @@ struct OperatorID {
 	std::string output;
 };
 
+/**
+ * @brief returns an operator's hash code value
+ *
+ * @param[in] op. operator's info
+ * @return string
+ */
 std::string hash(OperatorID op);
