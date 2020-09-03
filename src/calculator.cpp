@@ -3,12 +3,10 @@
 #include<fstream>
 #include"matrixIO.hpp"
 #include"bmp_img/bmp_tester.hpp"
-/*
 extern "C" {
 #include"crc32.c"
 }
-*/
-#include"crc32.hpp"
+//#include"crc32.hpp"
 
 
 void calc::matAdd(std::string const& lhs, std::string const& rhs, std::string const& out) {
@@ -29,12 +27,14 @@ void calc::hsCRC32(std::string const& in, std::string const& out) {
 		throw std::runtime_error("Could not access file for writing: " + out);
 	}
 
-	std::string inContent;
-	infs >> inContent;
+	std::string inContent ((std::istreambuf_iterator<char>(infs)), std::istreambuf_iterator<char>());
 
+	/*
 	uint32_t table[256];
 	crc32::generate_table(table);
 	uint32_t crc = crc32::update(table, 0, inContent.c_str(), inContent.size());
+	*/
+	uint32_t crc = calculate_crc32c(0xffffffff, (const unsigned char*)inContent.c_str(), inContent.size());
 	outfs << std::to_string(crc);
 	outfs.close();
 	infs.close();
