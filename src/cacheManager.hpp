@@ -9,10 +9,28 @@ class CacheManager {
 	std::string workPlace;
 	using miniCacheType = OperatorID::OpType;
 
+	/**
+	 * @brief initializes cache managers mini cache managers
+	 */
 	void initCMs();
 public:
+	/**
+	 * @brief default constructor
+	 */
 	CacheManager() = default;
+
+	/**
+     * @brief real constructor
+     *
+     * @param[in] workPlace. path to workplace
+     */
 	CacheManager(std::string const& workPlace);
+
+	/**
+     * @brief runs an opperation (command)
+     *
+     * @param[in] op. Operator id containing all the information about the operation
+     */
 	void runOp(OperatorID op);
 	void save();
 };
